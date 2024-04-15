@@ -3,7 +3,7 @@
 # BtrBackup: Recreate Btrfs subvolumes from received packages
 #
 # Created by Piotr Brzeski on 2021-07-13
-# Copyright (c) 2021 Piotr Brzeski. All rights reserved
+# Copyright (c) 2021-2024 Piotr Brzeski. All rights reserved
 
 . $(dirname "$0")/bb-config.sh
 
@@ -26,6 +26,7 @@ for PACKAGE_PATH in `ls -d "$PACKAGES_DIR"/*.ready 2> /dev/null | sort`; do
   if [ "$KEEP_PACKAGES" = "YES" ]; then
     bb_change_pkg_state "inprogress" "done"
   else
+    bb_log "$PACKAGE_NAME - Delete recreated package"
     rm -r "$PACKAGE_PATH" 2> "$TMP_LOG"
     bb_check $?
   fi

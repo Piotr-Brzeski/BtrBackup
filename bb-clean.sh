@@ -17,7 +17,7 @@ function read_number() {
     NUMBER=$1
   fi
   if (( NUMBER < "10" )); then
-    bb_error "Number of snapshots must be at lest 10."
+    bb_error "Number of snapshots must be at least 10."
     exit 1
   fi
 }
