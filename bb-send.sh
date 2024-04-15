@@ -3,7 +3,7 @@
 # BtrBackup: Send packages to the remote server using SSH
 #
 # Created by Piotr Brzeski on 2021-07-14
-# Copyright (c) 2021 Piotr Brzeski. All rights reserved
+# Copyright (c) 2021-2024 Piotr Brzeski. All rights reserved
 
 . $(dirname "$0")/bb-config.sh
 
@@ -23,6 +23,7 @@ for PACKAGE_PATH in `ls -d "$PACKAGES_DIR"/*.ready 2> /dev/null | sort`; do
   bb_change_pkg_state "sending" "sent"
   bb_log "$PACKAGE_NAME - Package sent"
   if [ "$KEEP_PACKAGES" != "YES" ]; then
+    bb_log "$PACKAGE_NAME - Delete sent package"
     rm -r "$PACKAGE_PATH" 2> "$TMP_LOG"
     bb_check $?
   fi
