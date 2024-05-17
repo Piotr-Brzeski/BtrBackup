@@ -33,11 +33,11 @@ if [ "$1" = "-vm" ]; then
   lxc info "$SUBVOLUME_NAME" > /dev/null 2>&1
   bb_check $?
   read_number $3
-  COUNT=`lxc info "$SUBVOLUME_NAME" | grep "^  $SUBVOLUME_NAME-.* (stateless)$" | wc -l`
+  COUNT=`lxc info "$SUBVOLUME_NAME" | grep "^| $SUBVOLUME_NAME" | wc -l`
   while (( $COUNT > $NUMBER )); do
     echo $COUNT
     sleep 1
-    SNAPSHOT=`lxc info "$SUBVOLUME_NAME" | grep "^  $SUBVOLUME_NAME-.* (stateless)$" | sort | head -n 1 | awk '{print $1}'`
+    SNAPSHOT=`lxc info "$SUBVOLUME_NAME" | grep "^| $SUBVOLUME_NAME" | awk '{print $2}' | sort | head -n 1`
     if [ "$SNAPSHOT" = "" ]; then
       bb_error "Empty snapshot name."
       exit 1
@@ -47,7 +47,7 @@ if [ "$1" = "-vm" ]; then
     lxc delete $SUBVOLUME_NAME/$SNAPSHOT 2> "$TMP_LOG"
     bb_check $?
     sleep 1
-    COUNT=`lxc info "$SUBVOLUME_NAME" | grep "^  $SUBVOLUME_NAME-.* (stateless)$" | wc -l`
+    COUNT=`lxc info "$SUBVOLUME_NAME" | grep "^| $SUBVOLUME_NAME" | wc -l`
   done
 else
   SUBVOLUME_PATH="$1"
