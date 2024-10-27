@@ -39,3 +39,20 @@ bb_change_pkg_state() {
   PACKAGE_PATH="$NEW_PATH"
 }
 
+bb_execute_remotely() {
+  REMOTE_CMD="$1"
+  TRY_NO=0
+  while [ $TRY_NO -le 10 ]; do
+    ((TRY_NO++))
+    ssh $REMOTE_MACHINE -p $REMOTE_PORT "$REMOTE_CMD" 2> "$TMP_LOG"
+    bb_check_no_exit $?
+    if [ $? -eq 0 ]; then
+      bb_log "Remote command '$REMOTE_CMD' succeeded"
+      return 0
+    fi
+    bb_log "Remote command '$REMOTE_CMD' failed during try number $TRY_NO"
+    sleep "${TRY_NO}m"
+  done
+  return 1
+}
+
