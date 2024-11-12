@@ -16,7 +16,7 @@ for PACKAGE_PATH in `ls -d "$PACKAGES_DIR"/*.ready 2> /dev/null | sort`; do
   bb_log "$PACKAGE_NAME - Sending package"
   bb_change_pkg_state "ready" "sending"
   echo "$PACKAGE_PATH"
-  scp -P $REMOTE_PORT -r "$PACKAGE_PATH" "$REMOTE_MACHINE:$REMOTE_DIR/$PACKAGE_NAME.sending" 2> "$TMP_LOG"
+  bb_copy_to_remote "$PACKAGE_PATH" "$PACKAGE_NAME.sending"
   bb_check $?
   bb_execute_remotely "mv \"$REMOTE_DIR/$PACKAGE_NAME.sending\" \"$REMOTE_DIR/$PACKAGE_NAME.ready\""
   bb_check $?
