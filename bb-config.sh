@@ -3,7 +3,7 @@
 # BtrBackup configuration
 #
 # Created by Piotr Brzeski on 2021-07-14
-# Copyright (c) 2021 Piotr Brzeski. All rights reserved
+# Copyright (c) 2021-2024 Piotr Brzeski. All rights reserved
 
 # Location of the log file
 LOG_FILE="/backup/bb.log"
@@ -20,6 +20,9 @@ PACKAGES_DIR="/backup/packages"
 # bb-create:   Path to the directory where Btrfs snapshots will be created
 # bb-recreate: Path to the directory where Btrfs snapshots will be recreated
 SNAPSHOTS_DIR="/backup/snapshots"
+
+# bb-create:   Path to the directory where information about last snapshots is stored
+LAST_SNAPSHOTS_DIR="$SNAPSHOTS_DIR/last_snapshots"
 
 # bb-send:     SSH login to the remote machine 
 REMOTE_MACHINE=root@127.0.0.1

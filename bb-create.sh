@@ -3,12 +3,11 @@
 # BtrBackup: Create package with the Btrfs snapshot of LXD VM or Btrfs subvolume
 #
 # Created by Piotr Brzeski on 2021-07-14
-# Copyright (c) 2021 Piotr Brzeski. All rights reserved
+# Copyright (c) 2021-2024 Piotr Brzeski. All rights reserved
 
 . $(dirname "$0")/bb-config.sh
 
 TMP_LOG="$LOG_FILE.temp"
-LAST_SNAPSHOTS_DIR="$SNAPSHOTS_DIR/last_snapshots"
 TIME=`date +"%Y-%m-%d-%H-%M-%S"`
 
 . $(dirname "$0")/bb-utils.sh
@@ -43,7 +42,7 @@ fi
 # Prepare package
 bb_log "$SNAPSHOT_NAME - Prepare package"
 PACKAGE_PATH="$PACKAGES_DIR/$SNAPSHOT_NAME.inprogress"
-mkdir "$PACKAGE_PATH" 2> "$TMP_LOG"
+mkdir -p "$PACKAGE_PATH" 2> "$TMP_LOG"
 bb_check $?
 echo "$SNAPSHOT_NAME" > "$PACKAGE_PATH/name" 2> "$TMP_LOG"
 bb_check $?
