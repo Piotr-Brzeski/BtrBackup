@@ -3,7 +3,7 @@
 # BtrBackup: Remove old Btrfs snapshots
 #
 # Created by Piotr Brzeski on 2022-04-15
-# Copyright (c) 2022 Piotr Brzeski. All rights reserved
+# Copyright (c) 2022-2024 Piotr Brzeski. All rights reserved
 
 . $(dirname "$0")/bb-config.sh
 
@@ -16,8 +16,8 @@ function read_number() {
   if [[ $1 =~ ^[0-9]+$ ]]; then
     NUMBER=$1
   fi
-  if (( NUMBER < "10" )); then
-    bb_error "Number of snapshots must be at least 10."
+  if (( NUMBER < "3" )); then
+    bb_error "Number of snapshots must be at least 3."
     exit 1
   fi
 }
