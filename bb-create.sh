@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 # bb-create.sh
 # BtrBackup: Create package with the Btrfs snapshot of LXD VM or Btrfs subvolume
 #

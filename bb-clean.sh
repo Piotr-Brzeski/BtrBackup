@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 # bb-clean.sh
 # BtrBackup: Remove old Btrfs snapshots
 #
@@ -12,11 +12,11 @@ NUMBER=0
 
 . $(dirname "$0")/bb-utils.sh
 
-function read_number() {
-  if [[ $1 =~ ^[0-9]+$ ]]; then
+read_number() {
+  if [[ "$1" =~ ^[0-9]+$ ]]; then
     NUMBER=$1
   fi
-  if (( NUMBER < "3" )); then
+  if (( $NUMBER < "3" )); then
     bb_error "Number of snapshots must be at least 3."
     exit 1
   fi
@@ -26,7 +26,7 @@ touch "$TMP_LOG"
 
 if [ "$1" = "-vm" ]; then
   SUBVOLUME_NAME=$2
-  if [ "$SUBVOLUME_NAME" = "" ]; then
+  if [ -z "$SUBVOLUME_NAME" ]; then
     bb_error "VM name not provided."
     exit 1
   fi
@@ -44,7 +44,7 @@ if [ "$1" = "-vm" ]; then
     fi
     bb_log "Removing snapshot - $SNAPSHOT"
     sleep 1
-    lxc delete $SUBVOLUME_NAME/$SNAPSHOT 2> "$TMP_LOG"
+    lxc delete "$SUBVOLUME_NAME/$SNAPSHOT" 2> "$TMP_LOG"
     bb_check $?
     sleep 1
     COUNT=`lxc info "$SUBVOLUME_NAME" | grep "^| $SUBVOLUME_NAME" | wc -l`

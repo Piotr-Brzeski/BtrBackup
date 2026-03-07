@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 # bb-send.sh
 # BtrBackup: Send packages to the remote server using SSH
 #

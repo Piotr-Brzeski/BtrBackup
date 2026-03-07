@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 # bb-config.sh
 # BtrBackup configuration
 #

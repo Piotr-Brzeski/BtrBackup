@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 # bb-recreate.sh
 # BtrBackup: Recreate Btrfs subvolumes from received packages
 #
